@@ -6,27 +6,25 @@ const TicketSchema = mongoose.Schema(
             type: String,
             required: true,
         },
-
-        problem_statement:{
+        problem_statement: {
             type: String,
             required: true,
         },
-        
-        customer_email:{
+        customer_email: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User',
-        },
-
-        organizationID: {
-            type: String,
             required: true,
         },
-
-        role: {
-            type:String,
-            required: false,
+        organizationID: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User',
+            required: true,
         },
-        
+        role: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User',
+            required: true,
+        },
     },
     {
         timestamps: true,
@@ -36,3 +34,4 @@ const TicketSchema = mongoose.Schema(
 const Ticket = mongoose.model("Ticket", TicketSchema);
 
 module.exports = Ticket;
+
