@@ -22,6 +22,22 @@ const TicketSchema = mongoose.Schema(
             ref: 'User',
             required: true,
         },
+        attachments: {
+            type: String,
+            required: false,
+        },
+        //add the attachments - user file urls, as well as technical expert's file url for the fix
+        // add the conversations in the interactions model and add technical expert's id as a new field in the tickets.
+        status: {
+            type: String, //enum
+            //reason of closing ticket
+            required: true,
+        },
+        //to think about if user can close the ticket or not
+        reason_of_closing ticket : {
+            type: String,
+            required : false,
+        },
         // role: {
         //     type: mongoose.Schema.Types.ObjectId,
         //     ref: 'User',
