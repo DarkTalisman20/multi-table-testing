@@ -8,14 +8,19 @@ const InteractionSchema = mongoose.Schema(
             required: true,
         },
         //add all the interactions for a customer service chat
-        problem_statement: {
-            type: String,
-            required: true,
-        },
-        problem_class: {
-            type: String,
-            required: true,
-        },
+        //add this to new model ->
+        // problem_statement: {
+        //     type: String,
+        //     required: true,
+        // },
+        // problem_class: {
+        //     type: String,
+        //     required: true,
+        // },
+
+        //--
+        //user's response and file urls
+        //technical expert's response as array of strings and file urls as array of strings
     },
     {
         timestamps: true,
