@@ -6,17 +6,20 @@ const UserSchema = mongoose.Schema(
             type: String,
             required: true,
         },
-
-        email:{
-            type: String,
-            required: false,
-        },
-
-        role: {
+        email: {
             type: String,
             required: true,
+            unique: true,
         },
-
+        organizationID: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Organization', // Assuming you have an Organization model
+            required: true,
+        },
+        roles: {
+            type: [String], // Array of strings to store multiple roles
+            required: true,
+        },
     },
     {
         timestamps: true,
