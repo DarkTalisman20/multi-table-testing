@@ -11,6 +11,7 @@ const TicketSchema = mongoose.Schema(
             type: String,
             required: true,
         },
+        //customer_id
         customer_email: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User',
