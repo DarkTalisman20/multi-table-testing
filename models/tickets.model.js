@@ -22,11 +22,11 @@ const TicketSchema = mongoose.Schema(
             ref: 'User',
             required: true,
         },
-        role: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'User',
-            required: true,
-        },
+        // role: {
+        //     type: mongoose.Schema.Types.ObjectId,
+        //     ref: 'User',
+        //     required: true,
+        // },
     },
     {
         timestamps: true,
