@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const User = require('./models/user.model.js');
 const Ticket = require('./models/tickets.model.js');
+const Interaction = require('./models/interactions.model.js');
 const app = express();
 
 app.use(express.json());
@@ -64,6 +65,16 @@ app.get('/tickets', async (req, res) => {
             });
 
         res.status(200).json(tickets);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+// Get Interactions Route
+app.get('/interactions', async (req, res) => {
+    try {
+        const interactions = await Interaction.find();
+        res.status(200).json(interactions);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
