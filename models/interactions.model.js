@@ -7,6 +7,7 @@ const InteractionSchema = mongoose.Schema(
             ref: 'Ticket',
             required: true,
         },
+        //add all the interactions for a customer service chat
         problem_statement: {
             type: String,
             required: true,
