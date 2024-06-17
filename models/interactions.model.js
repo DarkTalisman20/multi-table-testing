@@ -2,17 +2,12 @@ const mongoose = require('mongoose');
 
 const InteractionSchema = mongoose.Schema(
     {
-        query_type: {
+        problem_class: {
             type: String,
             required: true,
         },
 
-        classification:{
-            type: String,
-            required: true,
-        },
-
-        response: {
+        problem_statement:{
             type: String,
             required: true,
         },
