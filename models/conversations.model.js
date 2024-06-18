@@ -1,51 +1,42 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
-const conversations = mongoose.Schema(
-    {
-        //Reference to ticket_id
-        ticket_id: {
-            type: String,
-            required: true,
-            ref: 'tickets'
-        },
-        // the experts id which we need to add
-        tech_exp_id:{
-            type: String,
-            required: true,
-        },
-        //Queries asked by User
-        user_queries: {
-            type: [String],
-            required: true,
-        },
-        // response given by the expert
-        response: {
-            //multiple responses while guiding for a solution
-            type: [String],
-            required: true,
-        },
-        // the reason which is optional that is given by the expert while closing
-        reason_of_closing: {
-            type: String,
-            required: false,
-        },
-        //optional
-        urls:{
-            //multiple urls at multiple stages of guidance
-            type: [String],
-            required: false
-        },
-        status:{
-            type:[String],
-            required: true,
-            enum: ['pending', 'resolved'],
-        },
+const sessionSchema = mongoose.Schema({
+    tech_exp_id: {
+        type: String,
+        required: true,
     },
-    {
-        timestamps: false,
-    }
-);
+    user_queries: {
+        type: [String],
+        required: true,
+    },
+    response: {
+        type: [String],
+        required: true,
+    },
+    reason_of_closing: {
+        type: String,
+        required: false,
+    },
+    urls: {
+        type: [String],
+        required: false,
+    },
+    status: {
+        type: String,
+        required: true,
+        enum: ['pending', 'resolved'],
+    },
+}, { timestamps: true });
 
-const Conversation = mongoose.model("Conversation", conversations);
+const conversationsSchema = mongoose.Schema({
+    ticket_id: {
+        type: String,
+        required: true,
+        ref: 'tickets'
+    },
+    sessions: [sessionSchema],
+}, { timestamps: true });
 
-module.exports = Conversation;
+const Conversation = mongoose.model("Conversation", conversationsSchema);
+
+export default Conversation;
