@@ -33,7 +33,7 @@ const TicketSchema = mongoose.Schema(
             required: true,
             enum: ['open', 'pending', 'resolved','closed'], 
         },
-
+        //make it as an array of objects if needed, try adding status of convo in the convo model if not possible here
         conversation_id:{
             type: [String],
             ref: 'Conversation',
