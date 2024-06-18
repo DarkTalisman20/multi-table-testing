@@ -31,6 +31,7 @@ const conversations = mongoose.Schema(
             required: false
         },
         //add the user queries here
+        //check for the queries and responses
     },
     {
         timestamps: false,
