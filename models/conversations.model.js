@@ -6,11 +6,16 @@ const conversations = mongoose.Schema(
         ticket_id: {
             type: String,
             required: true,
-            ref: 'Ticket'
+            ref: 'tickets'
         },
         // the experts id which we need to add
         tech_exp_id:{
             type: String,
+            required: true,
+        },
+        //Queries asked by User
+        user_queries: {
+            type: [String],
             required: true,
         },
         // response given by the expert
@@ -30,8 +35,11 @@ const conversations = mongoose.Schema(
             type: [String],
             required: false
         },
-        //add the user queries here
-        //check for the queries and responses
+        status:{
+            type:[String],
+            required: true,
+            enum: ['pending', 'resolved'],
+        },
     },
     {
         timestamps: false,
