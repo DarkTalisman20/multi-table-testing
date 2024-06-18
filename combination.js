@@ -21,6 +21,59 @@ mongoose.connect("mongodb+srv://epsilon:multitabletesting@cluster0.k6guqe3.mongo
   .then(() => console.log("MongoDB connected."))
   .catch(() => console.log("Connection failed"));
 
+// Get all users
+app.get('/users', async (req, res) => {
+  try {
+    const users = await User.find({});
+    res.json(users);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching users', error: error.message });
+  }
+});
+
+// Get all technical experts
+app.get('/techexperts', async (req, res) => {
+  try {
+    const techExps = await TechExp.find({});
+    res.json(techExps);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching technical experts', error: error.message });
+  }
+});
+
+// Get all tickets
+app.get('/tickets', async (req, res) => {
+  try {
+    const tickets = await Ticket.find({});
+    res.json(tickets);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching tickets', error: error.message });
+  }
+});
+
+// Get all conversations
+app.get('/conversations', async (req, res) => {
+  try {
+    const conversations = await Conversation.find({});
+    res.json(conversations);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching conversations', error: error.message });
+  }
+});
+
+// Get sessions of a conversation by conversation ID
+app.get('/conversations/:id/sessions', async (req, res) => {
+  try {
+    const conversation = await Conversation.findById(req.params.id);
+    if (!conversation) {
+      return res.status(404).json({ message: 'Conversation not found' });
+    }
+    res.json(conversation.sessions);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching sessions', error: error.message });
+  }
+});
+
 app.post('/createIssue', async (req, res) => {
   const { name, email, organizationID, roles, problemStatement } = req.body;
 
