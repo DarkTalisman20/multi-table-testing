@@ -12,7 +12,7 @@ app.use(express.urlencoded({ extended: false }));
 const projectId = 'climeup-bcq9';
 const languageCode = 'en-US';
 const sessionClient = new SessionsClient({
-  keyFilename: 'random' // replace 'random' with the file 'D:/mongo/climeup-bcq9-6d91ae0d2d66.json'
+  keyFilename: 'D:/climeup-bcq9-6d91ae0d2d66.json'
 });
 
 mongoose.connect("mongodb+srv://epsilon:multitabletesting@cluster0.k6guqe3.mongodb.net/multitable?retryWrites=true&w=majority&appName=Cluster0")
