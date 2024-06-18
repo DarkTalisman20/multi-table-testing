@@ -30,6 +30,7 @@ const conversations = mongoose.Schema(
             type: [String],
             required: false
         },
+        //add the user queries here
     },
     {
         timestamps: false,
