@@ -1,14 +1,14 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const TicketSchema = mongoose.Schema(
     {
-        subject: {
+        problem_class: {
             type: String,
             required: true,
         },
 
-        description:{
-            type: String,
+        problem_statement:{
+            type: [String],
             required: true,
         },
         
@@ -17,15 +17,28 @@ const TicketSchema = mongoose.Schema(
             ref: 'User',
         },
 
-        status: {
+        tech_exp_id:{
             type: String,
             required: true,
         },
 
-        priority: {
-            type:String,
+        urls:{
+            //multiple urls at multiple stages of guidance
+            type: [String],
             required: false,
         },
+
+        status: {
+            type: String,
+            required: true,
+            enum: ['open', 'pending', 'resolved','closed'], 
+        },
+        //make it as an array of objects if needed, try adding status of convo in the convo model if not possible here
+        conversation_id:{
+            type: [String],
+            ref: 'Conversation',
+            required: false,
+        }
         
     },
     {
@@ -35,4 +48,4 @@ const TicketSchema = mongoose.Schema(
 
 const Ticket = mongoose.model("Ticket", TicketSchema);
 
-module.exports = Ticket;
+export default Ticket;
