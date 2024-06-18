@@ -119,10 +119,18 @@ app.post('/createIssue', async (req, res) => {
       status: 'open'
     });
 
-    // Create a new conversation for the ticket
+    // Create a new conversation for the ticket with an initial session
     const newConversation = new Conversation({
       ticket_id: newTicket._id,
-      sessions: [] // Initialize with no sessions
+      sessions: [{
+        session_id: sessionId, // Use the generated session ID
+        tech_exp_id: randomTechExp._id, // Include the technical expert's ID
+        status: 'pending', // Set an initial status for the session
+        queries: [{
+          query_text: problemStatement,
+          response: response.queryResult.fulfillmentText // Assuming you want to store the initial bot response
+        }]
+      }] // Initialize with one session containing the problem statement and required fields
     });
     await newConversation.save();
 
@@ -230,6 +238,35 @@ app.post('/conversations/:id/expert_response', async (req, res) => {
     }
   } catch (error) {
     res.status(500).json({ message: 'Error adding expert response', error: error.message });
+  }
+});
+
+app.patch('/conversations/:conversationId/sessions/:sessionId/status', async (req, res) => {
+  const { conversationId, sessionId } = req.params;
+  const { newStatus } = req.body; // Expected to be 'pending' or 'resolved'
+
+  if (!['pending', 'resolved'].includes(newStatus)) {
+    return res.status(400).json({ message: 'Invalid status. Must be either "pending" or "resolved".' });
+  }
+
+  try {
+    const conversation = await Conversation.findById(conversationId);
+    if (!conversation) {
+      return res.status(404).json({ message: 'Conversation not found' });
+    }
+
+    const sessionIndex = conversation.sessions.findIndex(session => session._id.toString() === sessionId);
+    if (sessionIndex === -1) {
+      return res.status(404).json({ message: 'Session not found' });
+    }
+
+    // Update the status of the session
+    conversation.sessions[sessionIndex].status = newStatus;
+    await conversation.save();
+
+    res.json({ message: 'Session status updated successfully', conversation });
+  } catch (error) {
+    res.status(500).json({ message: 'Error updating session status', error: error.message });
   }
 });
 
